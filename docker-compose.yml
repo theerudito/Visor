@@ -1,0 +1,7 @@
+version: '3'
+services:
+  visor-app:
+    build: .
+    ports:
+      - "1000:80"
+    restart: always
