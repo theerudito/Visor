@@ -70,6 +70,8 @@ server_name visor.between-bytes.tech;
 
 }
 
+sudo nginx -t
+
 sudo ln -s /etc/nginx/sites-available/visor.between-bytes.tech /etc/nginx/sites-enabled/
 
 sudo nginx -t
@@ -103,3 +105,16 @@ sudo systemctl enable certbot.timer
 Comandos para borrado de configuraciones de nginx solo cuando quiera eliminar un dominio
 sudo rm -f /etc/nginx/sites-available/visor.between-bytes.tech
 sudo rm -f /etc/nginx/sites-enabled/visor.between-bytes.tech
+
+
+server {
+    listen 80;
+    server_name visor.between-bytes.tech;
+
+    root /var/www/visor.between-bytes.tech;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
