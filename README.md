@@ -8,11 +8,13 @@ sudo nginx -t
 
 sudo mkdir -p /var/www/visor.between-bytes.tech
 
-# copiar los archivos estáticos dist o build de tu proyecto React a la carpeta del sitio web
+copiar los archivos estáticos dist o build de tu proyecto React a la carpeta del sitio web
 
+```bash
 sudo cp -r /ruta/a/tu/proyecto-react/dist/\* /var/www/visor.between-bytes.tech/
+```
 
-# crear un archivo de configuración en /etc/nginx/sites-available/
+crear un archivo de configuración en /etc/nginx/sites-available/
 
 ```bash
 sudo nano /etc/nginx/sites-available/visor.between-bytes.tech
