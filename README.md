@@ -18,6 +18,7 @@ sudo nano /etc/nginx/sites-available/visor.between-bytes.tech
 
 # configuración del servidor
 
+```nginx
 server {
 listen 80;
 server_name visor.between-bytes.tech;
@@ -30,6 +31,7 @@ server_name visor.between-bytes.tech;
     }
 
 }
+```
 
 # verificar la configuración de nginx
 
