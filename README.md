@@ -14,7 +14,7 @@ sudo cp -r /ruta/a/tu/proyecto-react/dist/\* /var/www/visor.between-bytes.tech/
 
 # crear un archivo de configuración en /etc/nginx/sites-available/
 
-```nginx
+```bash
 sudo nano /etc/nginx/sites-available/visor.between-bytes.tech
 ```
 
