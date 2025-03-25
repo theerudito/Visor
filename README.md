@@ -1,17 +1,21 @@
-# Alojar un sitio web React en un servidor Ubuntu con Nginx
+Alojar un sitio web React en un servidor Ubuntu con Nginx
 
-# verificar la configuración de nginx
+verificar la configuración de nginx
 
+```bash
 sudo nginx -t
+```
 
-# crear un directorio para el sitio web
+crear un directorio para el sitio web
 
+```bash
 sudo mkdir -p /var/www/visor.between-bytes.tech
+```
 
 copiar los archivos estáticos dist o build de tu proyecto React a la carpeta del sitio web
 
 ```bash
-sudo cp -r /ruta/a/tu/proyecto-react/dist/\* /var/www/visor.between-bytes.tech/
+sudo cp -r /ruta/a/tu/proyecto-react/dist/* /var/www/visor.between-bytes.tech/
 ```
 
 crear un archivo de configuración en /etc/nginx/sites-available/
@@ -20,9 +24,9 @@ crear un archivo de configuración en /etc/nginx/sites-available/
 sudo nano /etc/nginx/sites-available/visor.between-bytes.tech
 ```
 
-# configuración del servidor
+configuración del servidor
 
-```nginx
+```bash
 server {
 listen 80;
 server_name visor.between-bytes.tech;
@@ -37,16 +41,21 @@ server_name visor.between-bytes.tech;
 }
 ```
 
-# verificar la configuración de nginx
+verificar la configuración de nginx
 
+```bash
 sudo nginx -t
+```
 
-# luego crear un enlace simbólico en /etc/nginx/sites-enabled/
+luego crear un enlace simbólico en /etc/nginx/sites-enabled/
 
+```bash
 sudo ln -s /etc/nginx/sites-available/visor.between-bytes.tech /etc/nginx/sites-enabled/
+```
 
-# luego editamos el archivo de configuracion para el servidor HTTPS con SSL
+luego editamos el archivo de configuracion para el servidor HTTPS con SSL
 
+```bash
 server {
 listen 443 ssl;
 server_name visor.between-bytes.tech;
@@ -63,50 +72,71 @@ server_name visor.between-bytes.tech;
     }
 
 }
+```
 
-# verificar la configuración de nginx
+verificar la configuración de nginx
 
+```bash
 sudo nginx -t
+```
 
-# Si la configuración es correcta, verás un mensaje como:
+Si la configuración es correcta, verás un mensaje como:
 
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 
-# Usar Certbot para obtener los certificados SSL
+Usar Certbot para obtener los certificados SSL
 
+```bash
 sudo certbot --nginx -d visor.between-bytes.tech
+```
 
-# Verificar la configuración
+Verificar la configuración
 
+```bash
 sudo nginx -t
+```
 
-# Reiniciar Nginx
+Reiniciar Nginx
 
+```bash
 sudo systemctl restart nginx
+```
 
-# Renovar los certificados automáticamente
+Renovar los certificados automáticamente
 
+```bash
 sudo certbot renew
+```
 
-# Verifica que la renovación se haya realizado correctamente:
+Verifica que la renovación se haya realizado correctamente:
 
+```bash
 sudo certbot certificates
+```
 
-# recargar la configuración de nginx
+recargar la configuración de nginx
 
+```bash
 sudo systemctl reload nginx
+```
 
-# Configura la renovación automáticamente:
+Configura la renovación automáticamente:
 
+```bash
 sudo systemctl enable certbot.timer
+```
 
-# tipos para borrado de configuraciones de nginx solo cuando quiera eliminar un dominio
+tipos para borrado de configuraciones de nginx solo cuando quiera eliminar un dominio
 
+```bash
 sudo rm /etc/nginx/sites-available/visor.between-bytes.tech
 sudo rm /etc/nginx/sites-enabled/visor.between-bytes.tech
 sudo rm /etc/www/visor.between-bytes.tech
 sudo rm /etc/letsencrypt/live/visor.between-bytes.tech
+```
 
-# reiniciar nginx
+reiniciar nginx
 
+```bash
 sudo systemctl restart nginx
+```
