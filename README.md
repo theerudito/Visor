@@ -1,99 +1,118 @@
 Alojar un sitio web React en un servidor Ubuntu con Nginx
 
-verificar la configuración de nginx
+Instalar Nginx en Ubuntu
+
+```bash
+sudo apt update
+sudo apt install nginx
+```
+
+Instalar Certbot
+
+```bash
+sudo apt install certbot python3-certbot-nginx
+```
+
+Verificar Estado de Nginx
+
+```bash
+sudo systemctl status nginx
+```
+
+Verificar la configuración de Nginx
 
 ```bash
 sudo nginx -t
 ```
 
-crear un directorio para el sitio web
+mensaje de salida:
 
 ```bash
-sudo mkdir -p /var/www/visor.between-bytes.tech
+nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-copiar los archivos estáticos dist o build de tu proyecto React a la carpeta del sitio web
+crear el directorio para archivos estáticos en /var/www/tu-dominio.com
 
 ```bash
-sudo cp -r /ruta/a/tu/proyecto-react/dist/* /var/www/visor.between-bytes.tech/
+sudo mkdir -p /var/www/tu-dominio.com
 ```
 
-crear un archivo de configuración en /etc/nginx/sites-available/
+copiar los archivos estáticos a /var/www/tu-dominio.com
 
 ```bash
-sudo nano /etc/nginx/sites-available/visor.between-bytes.tech
+sudo cp -r /home/ubuntu/tu-dominio.com/build/* /var/www/tu-dominio.com/
 ```
 
-configuración del servidor
+Crea un archivo de configuración en /etc/nginx/sites-available/tu-dominio.com
+
+```bash
+sudo nano /etc/nginx/sites-available/tu-dominio.com
+```
+
+Ejemplo:
 
 ```bash
 server {
-listen 80;
-server_name visor.between-bytes.tech;
+    listen 80;
+    listen [::]:80;
 
-    root /var/www/visor.between-bytes.tech;
+    server_name tu-dominio.com;
+
+    root /var/www/tu-dominio.com;
     index index.html;
 
     location / {
-        try_files $uri /index.html;
+        try_files $uri $uri/ =404;
     }
-
 }
 ```
 
-verificar la configuración de nginx
+Verificar la configuración de Nginx
 
 ```bash
 sudo nginx -t
 ```
 
-luego crear un enlace simbólico en /etc/nginx/sites-enabled/
+mensaje de salida:
 
 ```bash
-sudo ln -s /etc/nginx/sites-available/visor.between-bytes.tech /etc/nginx/sites-enabled/
-```
-
-luego editamos el archivo de configuracion para el servidor HTTPS con SSL
-
-```bash
-server {
-listen 443 ssl;
-server_name visor.between-bytes.tech;
-
-    ssl_certificate /etc/letsencrypt/live/visor.between-bytes.tech/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/visor.between-bytes.tech/privkey.pem;
-
-    location / {
-        proxy_pass visor.between-bytes.tech
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-
-}
-```
-
-verificar la configuración de nginx
-
-```bash
-sudo nginx -t
-```
-
-Si la configuración es correcta, verás un mensaje como:
-
 nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+crear un enlace simbólico en /etc/nginx/sites-enabled/
+
+```bash
+sudo ln -s /etc/nginx/sites-available/tu-dominio.com /etc/nginx/sites-enabled/
+```
+
+```bash
+sudo nginx -t
+```
+
+mensaje de salida:
+
+```bash
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
 
 Usar Certbot para obtener los certificados SSL
 
 ```bash
-sudo certbot --nginx -d visor.between-bytes.tech
+sudo certbot --nginx -d tu-dominio.com
 ```
 
-Verificar la configuración
+llenar los datos solicitados
+
+Verificar la configuración de Nginx
 
 ```bash
 sudo nginx -t
+```
+
+mensaje de salida:
+
+```bash
+nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
 Reiniciar Nginx
@@ -111,12 +130,6 @@ sudo certbot renew
 Verifica que la renovación se haya realizado correctamente:
 
 ```bash
-sudo certbot certificates
-```
-
-recargar la configuración de nginx
-
-```bash
 sudo systemctl reload nginx
 ```
 
@@ -124,19 +137,4 @@ Configura la renovación automáticamente:
 
 ```bash
 sudo systemctl enable certbot.timer
-```
-
-tipos para borrado de configuraciones de nginx solo cuando quiera eliminar un dominio
-
-```bash
-sudo rm /etc/nginx/sites-available/visor.between-bytes.tech
-sudo rm /etc/nginx/sites-enabled/visor.between-bytes.tech
-sudo rm /etc/www/visor.between-bytes.tech
-sudo rm /etc/letsencrypt/live/visor.between-bytes.tech
-```
-
-reiniciar nginx
-
-```bash
-sudo systemctl restart nginx
 ```
