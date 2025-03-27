@@ -85,6 +85,8 @@ crear un enlace simbólico en /etc/nginx/sites-enabled/
 sudo ln -s /etc/nginx/sites-available/tu-dominio.com /etc/nginx/sites-enabled/
 ```
 
+Verificar la configuración de Nginx
+
 ```bash
 sudo nginx -t
 ```
