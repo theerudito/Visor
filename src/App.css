@@ -50,3 +50,15 @@ select {
   border-radius: 5px;
   margin: 40px 10px;
 }
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 150px; /* Ajusta el ancho máximo según sea necesario */
+}
