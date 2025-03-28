@@ -73,38 +73,33 @@ export const App = () => {
   };
 
   return (
-    <>
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "row",
-        }}
-      >
-        <textarea
-          type="textarea"
-          value={base64}
-          onChange={(e) => setBase64(e.target.value)}
-          placeholder="Ingrese el valor"
-        />
+    <div className="contenedor">
+      <div className="contenedor-body">
+        <div className="contenedor-input">
+          <div>
+            <textarea
+              type="textarea"
+              value={base64}
+              onChange={(e) => setBase64(e.target.value)}
+              placeholder="Ingrese el valor"
+            />
+          </div>
 
-        <div>
-          <button onClick={GenerarPDF}>GENERAR</button>
-          <button onClick={Limpiar}>LIMPIAR</button>
+          <div className="contenedor-botones">
+            <button onClick={GenerarPDF}>GENERAR</button>
+            <button onClick={Limpiar}>LIMPIAR</button>
+          </div>
+        </div>
+
+        <div className="contenedor-visualizador">
+          {selection === "EXCEL" ? (
+            <EXCEL_Viewer data={data} visible={visibleEXCEL} />
+          ) : (
+            <PDF_Viewer base64={base64} visible={visiblePDF} />
+          )}
         </div>
       </div>
-
-      <div
-        style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}
-      >
-        {selection === "EXCEL" ? (
-          <EXCEL_Viewer data={data} visible={visibleEXCEL} />
-        ) : (
-          <PDF_Viewer base64={base64} visible={visiblePDF} />
-        )}
-      </div>
-    </>
+    </div>
   );
 };
 

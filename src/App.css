@@ -1,4 +1,4 @@
-textarea {
+/* textarea {
   margin: 5px;
   display: inline-block;
   border: 1px solid #ccc;
@@ -61,4 +61,12 @@ table td {
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 150px;
-}
+} */
+
+.contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #323639;
+}	
