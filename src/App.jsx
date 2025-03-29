@@ -10,6 +10,7 @@ export const App = () => {
   const [visibleEXCEL, setVisibleEXCEL] = useState(false);
   const [selection, setSelection] = useState("");
   const [data, setData] = useState([]);
+  const year = new Date().getFullYear();
 
   const GenerarPDF = () => {
     if (base64 === "") {
@@ -76,7 +77,7 @@ export const App = () => {
     <div className="contenedor">
       <div className="contenedor-body">
         <div className="contenedor-input">
-          <div>
+          <div className="contenedor-textarea">
             <textarea
               type="textarea"
               value={base64}
@@ -91,12 +92,16 @@ export const App = () => {
           </div>
         </div>
 
-        <div className="contenedor-visualizador">
+        <div className="contenedor-visor">
           {selection === "EXCEL" ? (
             <EXCEL_Viewer data={data} visible={visibleEXCEL} />
           ) : (
             <PDF_Viewer base64={base64} visible={visiblePDF} />
           )}
+        </div>
+
+        <div className="contenedor-footer">
+          <p>BETWEEN BYTES SOFTWARE {year}</p>
         </div>
       </div>
     </div>

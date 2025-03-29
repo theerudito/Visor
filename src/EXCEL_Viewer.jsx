@@ -4,7 +4,6 @@ export const EXCEL_Viewer = ({ data = [], visible = false }) => {
   return (
     <div>
       <table
-        className="table table-hover table-dark"
         style={{
           display: visible ? "block" : "none",
           marginp: "auto",
