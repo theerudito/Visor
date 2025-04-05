@@ -101,7 +101,7 @@ export const App = () => {
         </div>
 
         <div className="contenedor-footer">
-          <p>BETWEEN BYTES SOFTWARE {year}</p>
+          <p>&copy; BETWEEN BYTES SOFTWARE {year}</p>
         </div>
       </div>
     </div>

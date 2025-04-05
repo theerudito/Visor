@@ -11,21 +11,29 @@ body {
   user-select: none;
 }
 
+.contenedor {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .contenedor-body {
-  width: auto;
-  height: 100%;
-  margin: 0px 5px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 0px 0px;
 }
 
 .contenedor-input {
   display: flex;
   flex-direction: row;
-  margin: 5px 0px 0px 0px;
-  height: 80px;
+  width: 100%;
+  margin: 1px 0px;
 }
 
 .contenedor-textarea {
   width: 100%;
+  margin: 0px 0px 0px 5px;
 }
 
 .contenedor-textarea > textarea {
@@ -138,10 +146,12 @@ body {
 }
 
 .contenedor-footer {
+  flex: 0 0 2%;
   display: flex;
-  margin: auto;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 0.9rem;
 }
 
 .contenedor-footer > p {
