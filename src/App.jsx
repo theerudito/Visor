@@ -33,8 +33,8 @@ export const App = () => {
       setVisibleIMAGE(false);
       setSelection("EXCEL");
     } else if (
-      base64.startsWith("iVBOR") || 
-      base64.startsWith("/9j/") || 
+      base64.startsWith("iVBOR") ||
+      base64.startsWith("/9j/") ||
       base64.startsWith("PHN2Z")
     ) {
       setBase64(base64);
