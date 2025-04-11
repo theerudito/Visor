@@ -1,4 +1,5 @@
 export const PDF_Viewer = ({ base64, visible }) => {
+  if (base64 === "") return;
   const pdfData = `data:application/pdf;base64,${base64}`;
   return (
     <div>

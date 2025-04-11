@@ -3,11 +3,13 @@ import "./App.css";
 import { PDF_Viewer } from "./PDF_Viewer";
 import { EXCEL_Viewer } from "./EXCEL_Viewer";
 import * as XLSX from "xlsx";
+import { IMAGES_Viewer } from "./IMAGES_Viewer";
 
 export const App = () => {
   const [base64, setBase64] = useState("");
   const [visiblePDF, setVisblePDF] = useState(false);
   const [visibleEXCEL, setVisibleEXCEL] = useState(false);
+  const [visibleIMAGE, setVisibleIMAGE] = useState(false);
   const [selection, setSelection] = useState("");
   const [data, setData] = useState([]);
   const year = new Date().getFullYear();
@@ -22,17 +24,30 @@ export const App = () => {
       setBase64(base64);
       setVisblePDF(true);
       setVisibleEXCEL(false);
+      setVisibleIMAGE(false);
       setSelection("PDF");
-    } else if (base64.startsWith("UEsDB") == true) {
+    } else if (base64.startsWith("UEsDB") === true) {
       handleFile();
       setVisblePDF(false);
       setVisibleEXCEL(true);
+      setVisibleIMAGE(false);
       setSelection("EXCEL");
+    } else if (
+      base64.startsWith("iVBOR") || 
+      base64.startsWith("/9j/") || 
+      base64.startsWith("PHN2Z")
+    ) {
+      setBase64(base64);
+      setVisblePDF(false);
+      setVisibleEXCEL(false);
+      setVisibleIMAGE(true);
+      setSelection("IMAGEN");
     } else {
       setSelection("");
       setBase64("");
       setVisblePDF(false);
       setVisibleEXCEL(false);
+      setVisibleIMAGE(false);
       alert("No es un formato válido");
     }
   };
@@ -42,6 +57,7 @@ export const App = () => {
     setBase64("");
     setVisblePDF(false);
     setVisibleEXCEL(false);
+    setVisibleIMAGE(false);
   };
 
   const handleFile = () => {
@@ -95,8 +111,10 @@ export const App = () => {
         <div className="contenedor-visor">
           {selection === "EXCEL" ? (
             <EXCEL_Viewer data={data} visible={visibleEXCEL} />
-          ) : (
+          ) : selection === "PDF" ? (
             <PDF_Viewer base64={base64} visible={visiblePDF} />
+          ) : (
+            <IMAGES_Viewer base64={base64} visible={visibleIMAGE} />
           )}
         </div>
 
